@@ -1,11 +1,25 @@
-from itertools import combinations, permutations
-a = input("Enter the first word: ").upper()
-b = input("Enter the second word: ").upper()
-c = input("Enter the result word: ").upper()
-all_letters = set(a + b + c)
-for comb in combinations(range(10), len(all_letters)):
-    for perm in permutations(comb):
-        d = dict(zip(all_letters, perm))
-        f = lambda x: sum(d[e] * 10**i for i, e in enumerate(x[::-1]))
-        if f(a) + f(b) == f(c):
-            print ("{} + {} = {}".format(f(a), f(b), f(c)))
+def solutions():
+    # letters = ('s', 'e', 'n', 'd', 'm', 'o', 'r', 'y')
+    all_solutions = list()
+    for s in range(9, -1, -1):
+        for e in range(9, -1, -1):
+            for n in range(9, -1, -1):
+                for d in range(9, -1, -1):
+                    for m in range(9, 0, -1):
+                        for o in range(9, -1, -1):
+                            for r in range(9, -1, -1):
+                                for y in range(9, -1, -1):
+                                    if len(set([s, e, n, d, m, o, r, y])) == 8:
+                                        send = 1000 * s + 100 * e + 10 * n + d
+                                        more = 1000 * m + 100 * o + 10 * r + e
+                                        money = 10000 * m + 1000 * o + 100 * n + 10 * e + y
+
+                                        if send + more == money:
+                                            all_solutions.append(
+                                                (send, more, money))
+    return all_solutions
+
+
+print(solutions())
+
+#https://github.com/VikashPR/18CSC305J-AI/blob/main/CSP.py
